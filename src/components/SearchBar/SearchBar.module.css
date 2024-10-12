@@ -1,0 +1,23 @@
+.header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: rgb(43, 41, 41);
+}
+.form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+.input{
+    width: 300px;
+    padding: 10px 8px;
+}
+.btn {
+    background-color: rgb(69, 64, 64);
+}
