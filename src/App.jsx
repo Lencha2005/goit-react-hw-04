@@ -6,6 +6,8 @@ import GalleryList from './components/GalleryList/GalleryList';
 import Loader from './components/Loader/Loader';
 import ErrorMessage from './components/ErrorMesssage/ErrorMessage';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
+import ImageModal from './components/ImageModal/ImageModal';
+import { ModalProvider } from './components/ModalContext/ModalContext';
 
 function App() {
  const [images, setImages] = useState([]);
@@ -13,7 +15,10 @@ function App() {
  const [loader, setLoader] = useState(false);
  const [error, setError] = useState(null);
  const [page, setPage] = useState(1);
- const [totalPages, setTotalPages] = useState(null)
+ const [totalPages, setTotalPages] = useState(null);
+//  const [modalIsOpen, setIsOpen] = useState(false);
+//  const [imgModal, setImgModal] = useState(null);
+
 
  const handleSubmit = (evt) => {
   evt.preventDefault();
@@ -34,6 +39,17 @@ function App() {
   //   behavior: 'smooth',
   // });
  }
+
+//  const openModal = (urls) => {
+//   setIsOpen(true);
+//   setImgModal(urls)
+//   console.log(imgModal);
+// }
+
+// const closeModal = () => {
+//   setIsOpen(false);
+//   setImgModal(null)
+// }
  
  useEffect(() => {
   const onFormSerchSubmit = async () => {
@@ -71,13 +87,16 @@ useEffect(() => {
 }, [page]);
 
  return (
+  <ModalProvider>
   <div>
   <SearchBar onSubmit={handleSubmit}/>
   {loader && <Loader />}
   {images.length > 0 && <GalleryList images={images}/>}
   {error && <ErrorMessage/>}
-  {images.length > 0 && page < totalPages && <LoadMoreBtn onClick={handleChangePage}/>}
+  {images.length > 0 && page < totalPages && <LoadMoreBtn onClick={handleChangePage} />}
+  <ImageModal />
   </div>
+  </ModalProvider>
  )
 }
 
