@@ -1,12 +1,13 @@
 import './App.css'
 import { useEffect, useState } from 'react'
 import SearchBar from './components/SearchBar/SearchBar';
-import GalleryList from './components/GalleryList/GalleryList';
+import ImageGallery from './components/ImageGallery/ImageGallery';
 import Loader from './components/Loader/Loader';
 import ErrorMessage from './components/ErrorMesssage/ErrorMessage';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 import ImageModal from './components/ImageModal/ImageModal';
 import { fetchImages } from './api/unsplash-api';
+import toast from 'react-hot-toast';
 
 function App() {
  const [images, setImages] = useState([]);
@@ -21,10 +22,15 @@ function App() {
   evt.preventDefault();
   const form = evt.target;
   const value = form.elements.text.value.trim();
+  if(value === '' || value === null){
+    toast.error('This is an invalid request. Try again!');
+    return;
+    } else {
   setSearchValue(value);
   form.reset(); //очищуємо форму
   setImages([]); // Скидаємо зображення при новому пошуку
   setPage(1); // Скидаємо сторінку
+    }
  }
 
  const handleChangePage = () => {
@@ -66,9 +72,9 @@ useEffect(() => {
 
  return (
   <div>
-  <SearchBar onSubmit={handleSubmit}/>
+  <SearchBar onSubmit={handleSubmit} value={searchValue}/>
   {loader && <Loader />}
-  {images.length > 0 && <GalleryList images={images}/>}
+  {images.length > 0 && <ImageGallery images={images}/>}
   {error && <ErrorMessage/>}
   {images.length > 0 && page < totalPages && <LoadMoreBtn onClick={handleChangePage} />}
   <ImageModal />

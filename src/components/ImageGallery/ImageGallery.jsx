@@ -1,12 +1,12 @@
-import GalleryItem from "../GalleryItem/GalleryItem";
-import styles from './GalleryList.module.css';
+import ImageCard from "../ImageCard/ImageCard";
+import styles from './ImageGallery.module.css';
 
 const GalleryList = ({images}) => {
   return (
     <ul className={styles.list}>
 	{images.map((image) => 
     <li key={image.id} className={styles.item}>
-    <GalleryItem 
+    <ImageCard
     image={image}
     />
     </li>)}

@@ -1,5 +1,5 @@
 import { useModal } from '../../context/ModalContext';
-import styles from './GalleryItem.module.css';
+import styles from './ImageCard.module.css';
 
 const GalleryItem = ({image}) => {
   const {onOpenModal} = useModal();
