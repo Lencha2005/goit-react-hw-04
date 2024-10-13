@@ -1,29 +1,26 @@
-import { useEffect, useState } from 'react'
 import './App.css'
+import { useEffect, useState } from 'react'
 import SearchBar from './components/SearchBar/SearchBar';
-import { fetchImages } from './api/unsplash-api';
 import GalleryList from './components/GalleryList/GalleryList';
 import Loader from './components/Loader/Loader';
 import ErrorMessage from './components/ErrorMesssage/ErrorMessage';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 import ImageModal from './components/ImageModal/ImageModal';
-import { ModalProvider } from './components/ModalContext/ModalContext';
+import { fetchImages } from './api/unsplash-api';
 
 function App() {
  const [images, setImages] = useState([]);
- const [searchValue, setSearchValue] = useState('');
+ const [searchValue, setSearchValue] = useState(null);
  const [loader, setLoader] = useState(false);
  const [error, setError] = useState(null);
  const [page, setPage] = useState(1);
  const [totalPages, setTotalPages] = useState(null);
-//  const [modalIsOpen, setIsOpen] = useState(false);
-//  const [imgModal, setImgModal] = useState(null);
 
 
  const handleSubmit = (evt) => {
   evt.preventDefault();
   const form = evt.target;
-  const value = form.elements.text.value.trim()
+  const value = form.elements.text.value.trim();
   setSearchValue(value);
   form.reset(); //очищуємо форму
   setImages([]); // Скидаємо зображення при новому пошуку
@@ -31,25 +28,8 @@ function App() {
  }
 
  const handleChangePage = () => {
-  console.log("Changing page to:", page + 1);
   setPage(page + 1);
-  // window.scrollBy({
-  //   top: window.innerHeight, // Прокрутка на висоту вьюпорта
-  //   left: 0,
-  //   behavior: 'smooth',
-  // });
  }
-
-//  const openModal = (urls) => {
-//   setIsOpen(true);
-//   setImgModal(urls)
-//   console.log(imgModal);
-// }
-
-// const closeModal = () => {
-//   setIsOpen(false);
-//   setImgModal(null)
-// }
  
  useEffect(() => {
   const onFormSerchSubmit = async () => {
@@ -63,7 +43,6 @@ function App() {
         } else {
           setImages(prevImages => [...prevImages, ...response.data.results])
         }
-        console.log(response.data.results);
       setTotalPages(response.data.total_pages);
 }
   catch(error) {
@@ -77,17 +56,15 @@ onFormSerchSubmit()
 
 
 useEffect(() => {
-  if (page > 0) {
+  if (page > 1) {
     window.scrollBy({
       top: window.innerHeight,
-      left: 0,
       behavior: 'smooth',
     });
   }
-}, [page]);
+}, [images]);
 
  return (
-  <ModalProvider>
   <div>
   <SearchBar onSubmit={handleSubmit}/>
   {loader && <Loader />}
@@ -96,8 +73,8 @@ useEffect(() => {
   {images.length > 0 && page < totalPages && <LoadMoreBtn onClick={handleChangePage} />}
   <ImageModal />
   </div>
-  </ModalProvider>
  )
 }
 
 export default App
+

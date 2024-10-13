@@ -1,8 +1,39 @@
 .modal{
+    position: fixed;
     top: 50%;
     left: 50%;
-    right: auto;
-    bottom: auto;
-    margin-right: -50%;
+    /* right: auto;
+    bottom: auto; */
+    /* margin-right: -50%; */
     transform: translate(-50%, -50%);
+    background-color: rgb(174, 166, 166);
+}
+.wrap{
+margin: 0 auto;
+}
+.btn{
+position: absolute;
+top: 0;
+right: 0;
+background-color: rgb(79, 76, 76);
+padding: 4px;
+display: flex;
+align-items: center;
+}
+.img{
+    width: 1080px;
+    height: 720px;
+    object-fit: cover;
+
+}
+.wrapper{
+display: flex;
+gap: 40px;
+justify-content: center;
+align-items: center;
+}
+.text{
+    font-size: 16px;
+    color: black;
+
 }

@@ -1,8 +1,8 @@
-import React from 'react'
+import styles from './ErrorMessage.module.css'
 
 const ErrorMessage = () => {
   return (
-    <p>Oops... Something went wrong... Try again later</p>
+    <p className={styles.text}>Oops... Something went wrong... Try again later</p>
   )
 }
 

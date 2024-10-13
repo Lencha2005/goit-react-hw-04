@@ -8,7 +8,7 @@ export async function fetchImages(searchValue, page){
             client_id: 'Z02RgsWxp9wYhbzY10H-LRHgjPYDmIvriueEpETzziw',
             query: searchValue,
             page: page,
-            per_page: 10,
+            per_page: 12,
             orientation: 'landscape',
         }
     }

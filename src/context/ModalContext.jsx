@@ -1,29 +1,27 @@
-import Modal from 'react-modal';
 import { createContext, useContext, useState } from 'react';
 
 export const ModalContext = createContext();
 export const useModal = () => useContext(ModalContext);
 
-export const ModalProvider = ({children}) => {
+export const ModalContextProvider = ({children}) => {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [imgModal, setImgModal] = useState(null);
+   
 
-    const openModal = (imgData) => {
+    const onOpenModal = (images) => {
           setIsOpen(true);
-          setImgModal(imgData)
-          console.log(imgData);
+          setImgModal(images)
+         
         }
-        
-    const closeModal = () => {
+
+    const onCloseModal = () => {
           setIsOpen(false);
           setImgModal(null)
         }
 
     return (
-            <ModalContext.Provider value={{ modalIsOpen, imgModal, openModal, closeModal }}>
+            <ModalContext.Provider value={{ modalIsOpen, imgModal, onOpenModal, onCloseModal }}>
               {children}
             </ModalContext.Provider>
           );
 };
-
-Modal.setAppElement('#root');

@@ -1,5 +1,3 @@
-import React from 'react'
-
 const LoadMoreBtn = ({onClick}) => {
   return (
     <button type='button' onClick={onClick}>Load More</button>

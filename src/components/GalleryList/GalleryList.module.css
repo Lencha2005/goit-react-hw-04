@@ -3,8 +3,14 @@
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
-
-.item {
-    /* width: calc((100% - 60px) / 4); */
+.item{
+    transition: scale 250ms ease-in-out;
+}
+.item:hover{
+    transform: scale(1.03);
 }

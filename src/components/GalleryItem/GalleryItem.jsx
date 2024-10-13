@@ -1,15 +1,14 @@
-import { useModal } from '../ModalContext/ModalContext';
+import { useModal } from '../../context/ModalContext';
 import styles from './GalleryItem.module.css';
 
-const GalleryItem = ({urls, alt_description, user, likes, id}) => {
-  const {openModal} = useModal();
-  const imgData = {urls, alt_description, user, likes, id };
-  console.log(imgData);
+const GalleryItem = ({image}) => {
+  const {onOpenModal} = useModal();
+  
   return (
-    <div onClick={() => openModal(imgData)}>
-        <img src={urls.small} alt={alt_description} className={styles.img} />
+    <div onClick={() => onOpenModal(image)}>
+        <img src={image.urls.small} alt={image.alt_description} className={styles.img}/>
     </div>
-  )
+  );
 }
 
 export default GalleryItem

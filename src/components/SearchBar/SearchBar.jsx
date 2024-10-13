@@ -17,10 +17,7 @@ const SearchBar = ({onSubmit}) => {
           <button type="submit" className={styles.btn}><IoSearchSharp /></button>
         </form>
       </header>
-          )
-
-
-
+      )
 }
 
 export default SearchBar
