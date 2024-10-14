@@ -8,6 +8,7 @@ import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 import ImageModal from './components/ImageModal/ImageModal';
 import { fetchImages } from './api/unsplash-api';
 import toast from 'react-hot-toast';
+import { ModalContextProvider } from './context/ModalContext';
 
 function App() {
  const [images, setImages] = useState([]);
@@ -71,6 +72,7 @@ useEffect(() => {
 }, [images]);
 
  return (
+  <ModalContextProvider>
   <div>
   <SearchBar onSubmit={handleSubmit} value={searchValue}/>
   {loader && <Loader />}
@@ -79,6 +81,7 @@ useEffect(() => {
   {images.length > 0 && page < totalPages && <LoadMoreBtn onClick={handleChangePage} />}
   <ImageModal />
   </div>
+  </ModalContextProvider>
  )
 }
 

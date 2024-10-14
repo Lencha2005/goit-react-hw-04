@@ -1,7 +1,7 @@
 import ImageCard from "../ImageCard/ImageCard";
 import styles from './ImageGallery.module.css';
 
-const GalleryList = ({images}) => {
+const ImageGallery = ({images}) => {
   return (
     <ul className={styles.list}>
 	{images.map((image) => 
@@ -14,4 +14,4 @@ const GalleryList = ({images}) => {
   )
 }
 
-export default GalleryList
+export default ImageGallery
