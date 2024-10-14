@@ -7,8 +7,7 @@ import ErrorMessage from './components/ErrorMesssage/ErrorMessage';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 import ImageModal from './components/ImageModal/ImageModal';
 import { fetchImages } from './api/unsplash-api';
-import toast from 'react-hot-toast';
-import { ModalContextProvider } from './context/ModalContext';
+
 
 function App() {
  const [images, setImages] = useState([]);
@@ -17,26 +16,31 @@ function App() {
  const [error, setError] = useState(null);
  const [page, setPage] = useState(1);
  const [totalPages, setTotalPages] = useState(null);
+ const [modalIsOpen, setIsOpen] = useState(false);
+  const [imgModal, setImgModal] = useState(null);
 
 
- const handleSubmit = (evt) => {
-  evt.preventDefault();
-  const form = evt.target;
-  const value = form.elements.text.value.trim();
-  if(value === '' || value === null){
-    toast.error('This is an invalid request. Try again!');
-    return;
-    } else {
+ const handleSubmit = (value) => {
   setSearchValue(value);
-  form.reset(); //очищуємо форму
   setImages([]); // Скидаємо зображення при новому пошуку
   setPage(1); // Скидаємо сторінку
-    }
+//     }
  }
 
  const handleChangePage = () => {
   setPage(page + 1);
  }
+
+ const onOpenModal = (images) => {
+  setIsOpen(true);
+  setImgModal(images)
+ 
+}
+
+const onCloseModal = () => {
+  setIsOpen(false);
+  setImgModal(null)
+}
  
  useEffect(() => {
   const onFormSerchSubmit = async () => {
@@ -72,16 +76,14 @@ useEffect(() => {
 }, [images]);
 
  return (
-  <ModalContextProvider>
   <div>
-  <SearchBar onSubmit={handleSubmit} value={searchValue}/>
+  <SearchBar onSubmit={handleSubmit} />
   {loader && <Loader />}
-  {images.length > 0 && <ImageGallery images={images}/>}
+  {images.length > 0 && <ImageGallery images={images} onOpenModal={onOpenModal}/>}
   {error && <ErrorMessage/>}
   {images.length > 0 && page < totalPages && <LoadMoreBtn onClick={handleChangePage} />}
-  <ImageModal />
+  {modalIsOpen && <ImageModal imgModal={imgModal} onCloseModal={onCloseModal} modalIsOpen={modalIsOpen}/>}
   </div>
-  </ModalContextProvider>
  )
 }
 

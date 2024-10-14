@@ -1,11 +1,23 @@
 import { IoSearchSharp } from "react-icons/io5";
 import styles from './SearchBar.module.css';
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 const SearchBar = ({onSubmit}) => {
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    const form = evt.target;
+    const value = form.elements.text.value.trim();
+    if(value === '' || value === null){
+      toast.error('This is an invalid request. Try again!');
+      return;
+      } else {
+        onSubmit(value)
+        form.reset(); //очищуємо форму
+      }
+   }
     return (
         <header className={styles.header}>
-        <form onSubmit={onSubmit} className={styles.form}>
+        <form onSubmit={handleSubmit} className={styles.form}>
           <input
             type="text"
             name='text'

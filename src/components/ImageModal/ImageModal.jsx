@@ -1,11 +1,8 @@
 import Modal from 'react-modal';
-import { useModal } from '../../context/ModalContext'
 import { MdOutlineClose } from "react-icons/md";
 import styles from './ImageModal.module.css';
 
-const ImageModal = () => {
-    const {modalIsOpen, onCloseModal, imgModal} = useModal();
-
+const ImageModal = ({modalIsOpen, onCloseModal, imgModal}) => {
     return (
           <Modal
             isOpen={modalIsOpen}
